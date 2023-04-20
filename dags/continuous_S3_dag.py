@@ -18,8 +18,10 @@ from airflow.providers.amazon.aws.operators.s3 import (
 )
 
 MY_BUCKET_NAME = "mytxtbucket"
+LOGS_FOLDER = "logs"
+PROCESS_FOLDER = "process"
 AWS_CONN_ID = "aws_conn"
-S3_URI = f"s3://{MY_BUCKET_NAME}/process/"
+S3_URI = f"s3://{MY_BUCKET_NAME}/{PROCESS_FOLDER}/"
 
 
 @dag(
@@ -32,7 +34,7 @@ S3_URI = f"s3://{MY_BUCKET_NAME}/process/"
 def continuous_S3_dag():
     wait_for_file = S3KeySensorAsync(
         task_id="wait_for_file",
-        bucket_key="logs/{{ ds }}*.csv",
+        bucket_key=f"{LOGS_FOLDER}" + "/{{ ds }}*.csv",
         bucket_name=MY_BUCKET_NAME,
         wildcard_match=True,
         aws_conn_id=AWS_CONN_ID,
@@ -41,7 +43,7 @@ def continuous_S3_dag():
     list_files = S3ListOperator(
         task_id="list_files",
         bucket=MY_BUCKET_NAME,
-        prefix="logs/",
+        prefix=f"{LOGS_FOLDER}/",
         aws_conn_id=AWS_CONN_ID,
     )
 
@@ -49,7 +51,7 @@ def continuous_S3_dag():
         print(file_name)
         return {
             "source_bucket_key": file_name,
-            "dest_bucket_key": "process/" + file_name.split("/")[-1],
+            "dest_bucket_key": f"{PROCESS_FOLDER}/" + file_name.split("/")[-1],
         }
 
     copy_file = S3CopyObjectOperator.partial(

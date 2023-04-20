@@ -14,9 +14,10 @@ from astro.files import File
 from astro.sql.table import Table
 
 MY_BUCKET_NAME = "mytxtbucket"
+PROCESS_FOLDER = "process"
 AWS_CONN_ID = "aws_conn"
 DB_CONN_ID = "duckdb_conn"
-S3_URI = f"s3://{MY_BUCKET_NAME}/process/"
+S3_URI = f"s3://{MY_BUCKET_NAME}/{PROCESS_FOLDER}/"
 ITEM = "strawberries"
 
 
