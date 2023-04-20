@@ -13,6 +13,7 @@ import random
     schedule="@continuous",
     max_active_runs=1,  
     catchup=False,
+    tags=["toy", "ContinuousTimetable"]
 )
 def continuous_toy_dag():
     @task
