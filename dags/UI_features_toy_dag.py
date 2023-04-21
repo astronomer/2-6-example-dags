@@ -1,6 +1,5 @@
 """
-Toy example of a complicated DAG structure to show the upstream/downsteam
-UI filter features.
+Toy example of a complicated DAG structure to show UI features and nested task groups. 
 """
 
 from airflow.decorators import dag, task_group, task

@@ -6,3 +6,4 @@ dags:
   - path: dags/continuous_toy_dag.py
   - path: dags/continuous_S3_dag.py
   - path: dags/downstream_S3_dag.py
+  - path: dags/UI_features_toy_dag.py

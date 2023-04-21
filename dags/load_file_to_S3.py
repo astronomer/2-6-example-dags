@@ -10,7 +10,7 @@ from airflow.providers.amazon.aws.transfers.local_to_s3 import (
 
 MY_BUCKET_NAME = "mytxtbucket"
 FILE_NAME = "{{ ds }}_log.csv"
-FILE_PATH = f"include/my_log.csv"
+FILE_PATH = "include/my_log.csv"
 AWS_CONN_ID = "aws_conn"
 
 
