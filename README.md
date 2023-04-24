@@ -1,14 +1,15 @@
-# Example DAGs for Apache Airflow 2.6
+Example DAGs for Apache Airflow 2.6
+===================================
 
 This repository contains example DAGs showing features released in Apache Airflow 2.6. 
 
 Aside from Apache Airflow this project uses [DuckDB](https://duckdb.org/) (via the [Airflow DuckDB provider](https://github.com/astronomer/airflow-provider-duckdb)), the [Airflow Slack provider](https://registry.astronomer.io/providers/apache-airflow-providers-slack/versions/7.2.0) and the [Astro Python SDK](https://astro-sdk-python.readthedocs.io/en/stable/index.html).
 
-## How to use this repository
+# How to use this repository
 
 This section explains how to run this repository with Airflow. Note that for some DAGs you will need to define extra connections (AWS and/or Slack). See the [Manage Connections in Apache Airflow](https://docs.astronomer.io/learn/connections) guide for instructions. DAGs with the tag `toy` work without any additional connections or tools.
 
-### Option 1: Use GitHub Codespaces
+## Option 1: Use GitHub Codespaces
 
 Run this Airflow project without installing anything locally.
 
@@ -26,20 +27,19 @@ Download the [Astro CLI](https://docs.astronomer.io/astro/cli/install-cli) to ru
 3. Run `astro dev start` in your cloned repository.
 4. After your Astro project has started. View the Airflow UI at `localhost:8080`.
 
-
-## DAGs
+# DAGs
 
 The following sections list the DAGs shown sorted by the feature that they showcase. You can filter DAGs in the UI by their `tags`.
 
-### ContinuousTimetable
+## ContinuousTimetable
 
 Tag: `ContinuousTimetable`
 
-**Toy example:**
+### Toy example
 
 The `continuous_toy` DAG contains one task which sleeps for a random number of seconds, after completion of the task the DAG will reschedule itself automatically, irrespective of whether it was successful or not. No connections need to be created in order to use this DAG.
 
-**S3 example:**
+### S3 example
 
 The use case/S3 example for the continuous timetable is a pipeline which waits for a file to drop in S3 using the `S3KeySensorAsync`. Once the file lands it is moved to a different folder and a second DAG is kicked off via a [Dataset](https://docs.astronomer.io/learn/airflow-datasets) running a transformation in SQL and an analysis in Pandas using the Astro Python SDK.
 
@@ -51,38 +51,38 @@ To use this example you will need to define a [connection](https://docs.astronom
 
 Note: The `continuous_S3` DAG uses dynamic task mapping, learn more in the [Create dynamic Airflow tasks](https://docs.astronomer.io/learn/dynamic-tasks) guide.
 
-### Notifier
+## Notifier
 
 Tag: `Notifier`
 
-**Toy example:**
+### Toy example
 
 The toy example is a DAG with 4 tasks, 2 of which will always fail. It shows callbacks being used at the DAG-level, in default_args and at the task level.
 
-**Slack example:**
+### Slack example
 
 Example showing how to use the SlackNotifier. Needs a Slack connection with the connection ID `slack_conn`  and a Slack API Token for a Slack bot (starts with 'xoxb-...'). The message posted includes [Jinja templated information](https://docs.astronomer.io/learn/templating). You may need to adjust the `SLACK_CHANNEL` variable to be set to a channel you bot has access to.
 
-**S3 example:**
+### S3 example
 
 DAG that loads a copy of the `my_log.csv` file from the `include` folder to an S3 bucket (`MY_BUCKET_NAME`) using the connection supplied as `aws_conn` and the Astro Python SDK. The DAG then runs a transformation and an analysis which succeeds if `THIS_DAG_SHOULD_SUCCEED=True` and fails if `THIS_DAG_SHOULD_SUCCEED=False`.
 
 At the DAG level both a `on_success_callback` and `on_failure_callback` is set using the custom notifier `MyS3Notifier` which is stored in `include/aws_notifier.py`. By default the notification text file is written into the same S3 bucket (`MY_BUCKET_NAME`) in a different folder (`NOTIFICATION_FOLDER`).
 
 
-### Other DAGs
+# Other DAGs
 
 - `json_yaml_macros_toy`: Shows how to use JSON and YAML input in Jinja templating.
 - `UI_features_toy`: DAG with a complex structure using nested task group to showcase new UI features.
 
-## Useful links:
+# Useful links:
 
 - [DAG scheduling and timetables in Airflow](https://docs.astronomer.io/learn/scheduling-in-airflow) guide.
 - [Manage Airflow DAG notifications](https://docs.astronomer.io/learn/error-notifications-in-airflow) guide.
 - [Write a DAG with the Astro Python SDK](https://docs.astronomer.io/learn/astro-python-sdk) tutorial.
 - [Astro Python SDK](https://astro-sdk-python.readthedocs.io/en/stable/index.html) documentation.
 
-## Project Structure
+# Project Structure
 
 This repository contains the following files and folders:
 
