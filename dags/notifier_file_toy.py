@@ -27,6 +27,10 @@ class MyFileNotifier(BaseNotifier):
             file.write(f"{context['task_instance'].task_id}")
 
 
+def my_additional_callback_function(context):
+    print("hello!")
+
+
 def success_function():
     return 10
 
@@ -47,9 +51,10 @@ def failure_function():
         "on_failure_callback": MyFileNotifier(
             message="Failure_default_arg_level_callback"
         ),
-        "on_success_callback": MyFileNotifier(
-            message="Success_default_arg_level_callback"
-        ),
+        "on_success_callback": [
+            MyFileNotifier(message="Success_default_arg_level_callback"),
+            my_additional_callback_function,
+        ],
     },
     tags=["toy", "Notifier"],
 )
