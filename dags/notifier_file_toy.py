@@ -1,6 +1,7 @@
 """
-Toy example of using a simple custom notifier that writes to the include folder.
-Shows different levels of success and failure callbacks.
+Toy example of using a simple custom notifier that writes files to the include folder.
+Two of the 4 tasks in this DAG are set up to fail in order to show on_failure_callback
+notifications.
 """
 
 from airflow.decorators import dag, task
@@ -10,6 +11,10 @@ import os
 
 
 class MyFileNotifier(BaseNotifier):
+    """Very basic example of a Notifier which writes files to the include folder.
+    :param message: The message to be used as the file name.
+    """
+
     template_fields = ("message",)
 
     def __init__(self, message):

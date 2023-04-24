@@ -11,11 +11,11 @@ import random
 @dag(
     start_date=datetime(2023, 4, 18),
     schedule="@continuous",
-    max_active_runs=1,  
+    max_active_runs=1,
     catchup=False,
-    tags=["toy", "ContinuousTimetable"]
+    tags=["toy", "ContinuousTimetable"],
 )
-def continuous_toy_dag():
+def continuous_toy():
     @task
     def sleep_randomly():
         time.sleep(random.randint(5, 20))
@@ -24,4 +24,4 @@ def continuous_toy_dag():
     sleep_randomly()
 
 
-continuous_toy_dag()
+continuous_toy()

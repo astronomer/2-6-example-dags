@@ -1,5 +1,5 @@
 """
-Toy example showing how to use the SlackNotifier. Needs a Slack connection set
+Example showing how to use the SlackNotifier. Needs a Slack connection set
 up with Slack API Token for a Slack bot (starts with 'xoxb-...')
 """
 
@@ -18,9 +18,9 @@ Today is the {{ ds }} and this task finished with the state: {{ ti.state }} :tad
     start_date=datetime(2023, 4, 18),
     schedule=None,
     catchup=False,
-    tags=["toy", "Notifier", "Slack"],
+    tags=["Notifier", "Slack"],
 )
-def notifier_slack_toy_example():
+def notifier_slack():
     @task(
         on_success_callback=SlackNotifier(
             slack_conn_id=SLACK_CONNECTION_ID,
@@ -34,4 +34,4 @@ def notifier_slack_toy_example():
     post_to_slack()
 
 
-notifier_slack_toy_example()
+notifier_slack()

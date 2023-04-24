@@ -20,7 +20,7 @@ my_yaml = (
     user_defined_macros={"my_json": my_json, "my_yaml": my_yaml},
     tags=["toy", "templating"],
 )
-def json_yaml_macros_toy_dag():
+def json_yaml_macros_toy():
     @task(templates_dict={"my_config": "{{ macros.json.loads(my_json)}}"})
     def print_json_macro(**context):
         print(context["templates_dict"]["my_config"])
@@ -34,4 +34,4 @@ def json_yaml_macros_toy_dag():
     print_yaml_macro()
 
 
-json_yaml_macros_toy_dag()
+json_yaml_macros_toy()

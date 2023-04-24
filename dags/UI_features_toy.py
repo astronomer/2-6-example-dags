@@ -1,16 +1,14 @@
 """
-Toy example of a complicated DAG structure to show UI features and nested task groups. 
+Toy example of a complex DAG structure to show UI features and nested task groups. 
 """
 
 from airflow.decorators import dag, task_group, task
 from airflow.operators.empty import EmptyOperator
 from pendulum import datetime
-import time
-import random
 
 
 @dag(start_date=datetime(2023, 4, 18), schedule=None, catchup=False, tags=["toy", "UI"])
-def UI_features_toy_dag():
+def UI_features_toy():
     start = EmptyOperator(task_id="start")
     end = EmptyOperator(task_id="end")
 
@@ -165,4 +163,4 @@ def UI_features_toy_dag():
         )
 
 
-UI_features_toy_dag()
+UI_features_toy()

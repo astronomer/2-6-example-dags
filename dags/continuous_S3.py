@@ -18,8 +18,8 @@ from airflow.providers.amazon.aws.operators.s3 import (
 )
 
 MY_BUCKET_NAME = "mytxtbucket"
-LOGS_FOLDER = "logs/"
-PROCESS_FOLDER = "process/"
+LOGS_FOLDER = "logs"
+PROCESS_FOLDER = "process"
 AWS_CONN_ID = "aws_conn"
 S3_URI = f"s3://{MY_BUCKET_NAME}/{PROCESS_FOLDER}/"
 
@@ -31,27 +31,32 @@ S3_URI = f"s3://{MY_BUCKET_NAME}/{PROCESS_FOLDER}/"
     catchup=False,
     tags=["ContinuousTimetable"],
 )
-def continuous_S3_dag():
+def continuous_S3():
+    # deferrable task that waits for a file to drop in an S3 bucket
     wait_for_file = S3KeySensorAsync(
         task_id="wait_for_file",
-        bucket_key=f"{LOGS_FOLDER}" + "{{ ds }}_log.csv",
+        bucket_key=f"{LOGS_FOLDER}" + "/{{ ds }}_log.csv",
         bucket_name=MY_BUCKET_NAME,
         wildcard_match=True,
         aws_conn_id=AWS_CONN_ID,
+        poke_interval=10,  # look for the file every 10 seconds
+        timeout=60 * 60 * 24,  # The task will time out and fail after 24hrs
     )
 
     list_files = S3ListOperator(
         task_id="list_files",
         bucket=MY_BUCKET_NAME,
-        prefix=f"{LOGS_FOLDER}",
+        prefix=f"{LOGS_FOLDER}/",
         aws_conn_id=AWS_CONN_ID,
     )
 
+    # map function to turn list of files in the S3 bucket's LOGS_FOLDER into
+    # a list of dictionaries containing both the source and destination key
     def create_kwargs(file_name):
         print(file_name)
         return {
             "source_bucket_key": file_name,
-            "dest_bucket_key": f"{PROCESS_FOLDER}" + file_name.split("/")[-1],
+            "dest_bucket_key": f"{PROCESS_FOLDER}/" + file_name.split("/")[-1],
         }
 
     copy_file = S3CopyObjectOperator.partial(
@@ -59,8 +64,10 @@ def continuous_S3_dag():
         source_bucket_name=MY_BUCKET_NAME,
         dest_bucket_name=MY_BUCKET_NAME,
         aws_conn_id=AWS_CONN_ID,
-        outlets=[Dataset(S3_URI)],
-    ).expand_kwargs(list_files.output.map(create_kwargs))
+        outlets=[Dataset(S3_URI)],  # this task produces to a Dataset
+    ).expand_kwargs(
+        list_files.output.map(create_kwargs)
+    )  # expand_kwargs is a dynamic task mapping function
 
     delete_file = S3DeleteObjectsOperator(
         task_id="delete_file",
@@ -72,4 +79,4 @@ def continuous_S3_dag():
     wait_for_file >> list_files >> copy_file >> delete_file
 
 
-continuous_S3_dag()
+continuous_S3()

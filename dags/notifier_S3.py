@@ -21,8 +21,10 @@ from astro.files import File
 from astro.sql.table import Table
 
 MY_BUCKET_NAME = "mytxtbucket"
-OBEJCT_KEY = "notify_test/my_log.csv"
-FILE_PATH = "include/my_log.csv"
+PIPELINE_FOLDER = "my_logs"
+NOTIFICATION_FOLDER = "alerts"
+OBEJCT_KEY = f"{PIPELINE_FOLDER}/my_log.csv"
+LOCAL_FILE_PATH = "include/my_log.csv"
 AWS_CONN_ID = "aws_conn"
 DB_CONN_ID = "duckdb_conn"
 ITEM = "melons"
@@ -59,18 +61,27 @@ def analyze_fail(df: pd.DataFrame):
     schedule=None,
     catchup=False,
     on_failure_callback=MyS3Notifier(
-        message="{{ ds }}: my_log.csv pipeline failed on!", include_metadata=True
+        message="{{ ds }}: my_log.csv pipeline failed on!",
+        bucket_name=MY_BUCKET_NAME,
+        aws_conn_id=AWS_CONN_ID,
+        s3_key_notification=NOTIFICATION_FOLDER
+        + "/{{ ds }}_{{ ti.state }}_{{ ti.dag_id }}.txt",
+        include_metadata=True,
+        s3_key_metadata=PIPELINE_FOLDER + "/" + "my_log.csv",
     ),
     on_success_callback=MyS3Notifier(
-        message="{{ ds }}: my_log.csv pipeline was successful!"
+        message="{{ ds }}: my_log.csv pipeline was successful!",
+        bucket_name=MY_BUCKET_NAME,
+        aws_conn_id=AWS_CONN_ID,
+        s3_key_notification=NOTIFICATION_FOLDER
+        + "/{{ ds }}_{{ ti.state }}_{{ ti.dag_id }}.txt",
     ),
-    tags=["toy", "Notifier"],
+    tags=["Notifier"],
 )
 def notifier_S3_dag():
-
     copy_file_to_S3 = LocalFilesystemToS3Operator(
         task_id="copy_file_to_S3",
-        filename=FILE_PATH,
+        filename=LOCAL_FILE_PATH,
         dest_key=OBEJCT_KEY,
         dest_bucket=MY_BUCKET_NAME,
         aws_conn_id=AWS_CONN_ID,
@@ -78,7 +89,9 @@ def notifier_S3_dag():
     )
 
     ingest_data = aql.load_file(
-        input_file=File(path=f"s3://{MY_BUCKET_NAME}/" + OBEJCT_KEY, conn_id=AWS_CONN_ID),
+        input_file=File(
+            path=f"s3://{MY_BUCKET_NAME}/" + OBEJCT_KEY, conn_id=AWS_CONN_ID
+        ),
         output_table=Table(conn_id=DB_CONN_ID),
     )
 

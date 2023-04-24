@@ -30,6 +30,8 @@ def transform_orders(in_table, item):
 
 @aql.dataframe
 def analyze(df: pd.DataFrame):
+    """Calculate and print the total bill per customer."""
+
     df["total_price"] = df["amount"] * df["price per item"]
     bill_by_customer = df.groupby("customer")["total_price"].sum().reset_index()
     print(bill_by_customer)
@@ -42,7 +44,8 @@ def analyze(df: pd.DataFrame):
     catchup=False,
     tags=["ContinuousTimetable"],
 )
-def downstream_S3_dag():
+def downstream_S3():
+    # load the information from the CSV file in S3 to a temp table in a local DuckDB
     ingest_data = aql.load_file(
         input_file=File(path=f"{S3_URI}" + "{{ ds }}_log.csv", conn_id=AWS_CONN_ID),
         output_table=Table(conn_id=DB_CONN_ID),
@@ -61,7 +64,7 @@ def downstream_S3_dag():
         output_table=Table(conn_id=DB_CONN_ID, name="billing_table"),
     )
 
-    #aql.cleanup()
+    # aql.cleanup()
 
 
-downstream_S3_dag()
+downstream_S3()
