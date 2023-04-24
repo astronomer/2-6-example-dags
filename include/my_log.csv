@@ -1,0 +1,13 @@
+customer,items,amount,price per item
+id001,strawberries,20,0.25
+id002,tomatoes,5,0.4
+id003,melons,2,2
+id004,oranges,10,1.2
+id002,strawberries,30,0.25
+id002,tomatoes,4,0.4
+id004,melons,2,2
+id007,oranges,2,1.2
+id008,strawberries,20,0.25
+id006,tomatoes,5,0.4
+id003,melons,3,2
+id004,oranges,3,1.2

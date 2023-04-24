@@ -1,0 +1,9 @@
+# These categories will be applied to all DAGs in the repo.
+categories:
+  - Airflow Fundamentals
+# List of DAGs that should be published to the Astronomer Registry.
+dags:
+  - path: dags/continuous_toy_dag.py
+  - path: dags/continuous_S3_dag.py
+  - path: dags/downstream_S3_dag.py
+  - path: dags/UI_features_toy_dag.py
