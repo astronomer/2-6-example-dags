@@ -69,6 +69,17 @@ DAG that loads a copy of the `my_log.csv` file from the `include` folder to an S
 
 At the DAG level both a `on_success_callback` and `on_failure_callback` is set using the custom notifier `MyS3Notifier` which is stored in `include/aws_notifier.py`. By default the notification text file is written into the same S3 bucket (`MY_BUCKET_NAME`) in a different folder (`NOTIFICATION_FOLDER`).
 
+## Triggerer logging and deferrable TriggerDagRunOperator
+
+Toy example showing the triggerer logs in the Airflow task logs, as well as a deferrable TriggerDagRunOperator (set via the `deferrable` parameter).
+
+The `deferrable_triggerdagrunoperator_toy` DAG contains the deferrable TriggerDagRunOperator which will kick off the `downstream_trigger_dagrun` DAG and wait for its completion after the amount of seconds provided in the dag run configuration via the `conf` parameter. 
+
+The triggerer logs are shown in the task logs of the TriggerDagRunOperator and look similar to:
+
+```text
+[2023-04-25, 13:38:40 UTC] {triggerer_job_runner.py:615} INFO - Trigger deferrable_triggerdagrunoperator_toy/manual__2023-04-25T13:38:02.457058+00:00/trigger_dagrun/-1/1 (ID 111) fired: TriggerEvent<('airflow.triggers.external_task.DagStateTrigger', {'dag_id': 'downstream_trigger_dagrun', 'states': ['success', 'failed'], 'execution_dates': [DateTime(2023, 4, 25, 13, 38, 13, 469267, tzinfo=Timezone('UTC'))], 'poll_interval': 5})>
+```
 
 # Other DAGs
 
