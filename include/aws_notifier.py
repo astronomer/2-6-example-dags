@@ -16,7 +16,6 @@ class MyS3Notifier(BaseNotifier):
 
     :param include_metadata: The function that should be applied to fetched one at a time.
     :param s3_key_metadata: The full S3 key from which to retrieve file metadata.
-    :param
     """
 
     template_fields = (
