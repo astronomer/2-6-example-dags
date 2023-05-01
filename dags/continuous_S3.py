@@ -1,5 +1,5 @@
 """
-A DAG using the ContinuousTimetable to continuously wait for a csv file to drop in
+A DAG using the ContinuousTimetable (Airflow 2.6) to continuously wait for a csv file to drop in
 an S3 bucket. This pattern is especially useful when waiting for a very irregular
 event in an external data tool.
 After the file has dropped the DAG copies the file into a different folder 

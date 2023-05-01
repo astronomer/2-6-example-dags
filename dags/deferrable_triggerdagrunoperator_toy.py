@@ -1,5 +1,6 @@
 """
-Toy example of a deferrable TriggerDagRunOperator. 
+Toy example of a deferrable TriggerDagRunOperator. The option to turn this operator
+into a deferrable operator was added in Airflow 2.6.
 """
 
 from airflow.decorators import dag, task
@@ -12,7 +13,7 @@ import time
     start_date=datetime(2023, 4, 18),
     schedule=None,
     catchup=False,
-    tags=["toy", "TriggerDagRunOperator", "triggerer logs"],
+    tags=["toy", "TriggerDagRunOperator", "trigger logs"],
 )
 def deferrable_triggerdagrunoperator_toy():
     @task
@@ -24,7 +25,7 @@ def deferrable_triggerdagrunoperator_toy():
         trigger_dag_id="downstream_trigger_dagrun",
         conf={"sleep_time": 23},
         wait_for_completion=True,
-        deferrable=True,
+        deferrable=True,  # this parameters is available in Airflow 2.6+
         poke_interval=5,
     )
 

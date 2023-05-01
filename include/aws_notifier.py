@@ -13,7 +13,6 @@ class MyS3Notifier(BaseNotifier):
     :param s3_key_notification: key to the file into which the notification information should be written,
     has to be able to receive string content.
     :param aws_conn_id: The connection ID used for the connection to AWS.
-
     :param include_metadata: The function that should be applied to fetched one at a time.
     :param s3_key_metadata: The full S3 key from which to retrieve file metadata.
     """

@@ -1,11 +1,11 @@
 """
-Toy example of different types of callbacks.
+Toy example of different types of callback parameters with functions and a Notifier.
+Notifiers were added in Airflow 2.6.
 """
 
 from airflow.decorators import dag, task
 from pendulum import datetime, duration
 from airflow.notifications.basenotifier import BaseNotifier
-import os
 
 class MyNotifier(BaseNotifier):
     """

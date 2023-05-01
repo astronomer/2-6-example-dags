@@ -11,7 +11,7 @@ import time
     start_date=datetime(2023, 4, 18),
     schedule=None,
     catchup=False,
-    tags=["toy", "TriggerDagRunOperator", "triggerer logs"],
+    tags=["toy", "TriggerDagRunOperator", "trigger logs"],
     params={"sleep_time": 5},
 )
 def downstream_trigger_dagrun():

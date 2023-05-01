@@ -1,5 +1,5 @@
 """
-Toy example of using macros to access json and yaml inputs.
+Toy example of using macros to access json and yaml inputs, which was added in Airflow 2.6.
 """
 
 from airflow.decorators import dag, task
