@@ -1,4 +1,6 @@
 """
+### Toy DAG using a yaml and a json macro
+
 Toy example of using macros to access json and yaml inputs, which was added in Airflow 2.6.
 """
 

@@ -1,4 +1,6 @@
 """
+### Simple ELT DAG using a custom notifier to notify with writing files to S3
+
 Use case example of a custom notifier set at the DAG level. This DAG will upload 
 a local CSV file with orders data to S3 and then run a pipeline on said file. 
 Depending on the THIS_DAG_SHOULD_SUCCEED variable, the DAG will succeed of fail.

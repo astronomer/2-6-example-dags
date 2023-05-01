@@ -1,4 +1,6 @@
 """
+### Simple DAG using the SlackNotifier
+
 Example showing how to use the SlackNotifier. Needs a Slack connection set
 up with Slack API Token for a Slack bot (starts with 'xoxb-...')
 """

@@ -1,4 +1,6 @@
 """
+### Toy DAG using a custom notifier to write files to the include folder
+
 Toy example of using a simple custom notifier that writes files to the include folder.
 Two of the 4 tasks in this DAG are set up to fail in order to show on_failure_callback
 notifications.

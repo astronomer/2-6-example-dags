@@ -1,4 +1,6 @@
 """
+### Simple ELT DAG
+
 A DAG triggered from a Dataset update which fetches a CSV file from an AWS S3
 bucket and reads its contents into a DuckDB database, runs a transformation
 and provides an analysis using the Astro Python SDK.

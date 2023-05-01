@@ -1,7 +1,8 @@
 """
-Toy example of different configurations around task retries. Note that you can see
-the behavior of this DAG in case of task success by setting the param 'valid_bash_command'
-to any valid bash command.
+### Toy DAG showing different configurations of retry parameters
+
+Note that you can see the behavior of this DAG in case of task success by 
+setting the param 'valid_bash_command' to any valid bash command.
 """
 
 from airflow.decorators import dag

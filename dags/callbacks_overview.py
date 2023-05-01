@@ -1,4 +1,6 @@
 """
+### Airflow callback and notifier toy example
+
 Toy example of different types of callback parameters with functions and a Notifier.
 Notifiers were added in Airflow 2.6.
 """

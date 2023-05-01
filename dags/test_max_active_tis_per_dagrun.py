@@ -1,5 +1,7 @@
 """
-Toy DAG showing the new max_active_tis_per_dag parameter limiting the number
+### Toy DAG showing the new max_active_tis_per_dag parameter.
+
+This parameter was added in Airflow 2.6 and limits the number 
 of mapped task instances within one Dagrun.
 """
 

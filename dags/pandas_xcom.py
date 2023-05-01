@@ -1,4 +1,6 @@
 """
+### Toy DAG passing a pandas.DataFrame object via XCom
+
 Toy DAG showing XCom serialization of Pandas dataframes.
 """
 

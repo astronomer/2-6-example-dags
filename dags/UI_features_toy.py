@@ -1,4 +1,6 @@
 """
+### Toy DAG showing nested task groups to test UI features.
+
 Toy example of a complex DAG structure to show UI features and nested task groups. 
 """
 

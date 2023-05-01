@@ -1,4 +1,6 @@
 """
+### Toy DAG using a deferrable TriggerDagRunOperator
+
 Toy example of a deferrable TriggerDagRunOperator. The option to turn this operator
 into a deferrable operator was added in Airflow 2.6.
 """

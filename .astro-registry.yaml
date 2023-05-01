@@ -5,7 +5,6 @@ categories:
 dags:
   - path: dags/callbacks_overview.py
   - path: dags/continuous_S3_dag.py
-  - path: dags/downstream_S3_dag.py
   - path: dags/deferrable_triggerdagrunoperator_toy.py
   - path: dags/json_yaml_macros_toy.py
   - path: dags/notifier_file_toy.py

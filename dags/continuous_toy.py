@@ -1,4 +1,6 @@
 """
+### Toy DAG using a ContinuousTimetable
+
 Toy example showing a simple implementation of the ContinuousTimetable.
 """
 
