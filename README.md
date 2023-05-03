@@ -88,6 +88,7 @@ The trigger logs are shown in the task logs of the TriggerDagRunOperator and loo
 - `retry_example`: is a DAG showing different retries configurations. 2.6 introduced the Airflow config `core.max_task_retry_delay`.
 - `max_active_tis_per_dagrun`: DAG showing the difference between `max_active_tis_per_dagrun` and `max_active_tis_per_dag` in a simple mapping example. `max_active_tis_per_dag`: is new in Airflow 2.6 and allows you to restrict how many mapped task instances of a task can run at the same time for the same DAG run.
 - `pandas_xcom`: Toy DAG passing a pandas.DataFrame object via XCom, which was added to standard XCom via pyarrow serialization in 2.6.
+- `trigger_with_params`: DAG to trigger w/config to show new UI features.
 
 # Useful links:
 

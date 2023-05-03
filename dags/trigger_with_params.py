@@ -1,9 +1,11 @@
 """
 ### Toy DAG to show the new UI features in the Trigger w/ config view. 
+
+This DAG uses the Param model to define bounds around DAG params which will be
+rendered as an intuitive UI in Airflow 2.6.
 """
 
-from airflow.decorators import dag, task_group, task
-from airflow.operators.empty import EmptyOperator
+from airflow.decorators import dag, task
 from pendulum import datetime
 from airflow.models.param import Param
 
