@@ -18,7 +18,7 @@ from airflow.models.param import Param
     params={
         "dog_name": Param("Piglet", type="string", maxLength=50),
         "number_of_treats": Param(5, type="integer", minimum=3),
-        "dog_is_happy_pre_treats": Param(True, type="boolean")
+        "dog_is_happy_pre_treats": Param(False, type="boolean")
     },
 )
 def trigger_with_params():
